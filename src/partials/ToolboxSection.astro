@@ -1,0 +1,19 @@
+---
+import { ToolboxIcon } from '@configs/icons'
+import { devIcons } from '@configs/dev-icons' 
+import DevIcon from '@components/DevIcon.astro'
+---
+
+<section class="mt-24">
+    <span class="flex items-center mb-8">
+        <div class="bg-back-subtle p-2 mr-4 rounded-full">
+            <ToolboxIcon />
+        </div>
+        <h4 class="text-xl text-accent font-semibold">Mes outils</h4>
+    </span>
+    <ul class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+        {devIcons.map(icon => (
+            <DevIcon name={icon.name} iconName={icon.iconName} key={icon.name} />
+        ))}
+    </ul>
+</section>

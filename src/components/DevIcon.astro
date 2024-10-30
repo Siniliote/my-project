@@ -1,0 +1,13 @@
+---
+interface Props {
+  name: string
+  iconName: string
+}
+
+const { iconName, name } = Astro.props
+---
+
+<li class="flex items-center">
+    <i class={iconName}></i>
+    <span class="ml-2">{name}</span>
+</li>

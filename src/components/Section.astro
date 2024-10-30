@@ -1,0 +1,10 @@
+---
+const { title } = Astro.props
+---
+
+<div class="w-full flex flex-col-reverse md:flex-row justify-start">
+  {title && (
+    <div class="mb-6 text-2xl font-bold">{title}</div>
+  )}
+  <slot />
+</div>

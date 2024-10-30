@@ -1,0 +1,52 @@
+---
+import { EmailIcon, GithubIcon, LinkedinIcon, PaperIcon } from '@configs/icons'
+
+interface Props {
+    resume: string
+    email: string
+    github: string
+    linkedin: string
+}
+
+const { resume, email, github, linkedin } = Astro.props
+---
+
+<div class="flex items-center">
+    <a
+        href={resume}
+        target="_blank"
+        rel="noreferrer"
+        class="flex items-center mr-4 text-fore-primary border-2 border-accent w-fit px-4 py-1 rounded cursor-pointer hover:text-accent transition-colors"
+    >
+        <span class="mr-2">
+        <PaperIcon />
+        </span>
+        Curriculum Vitae
+    </a>
+    <span class="flex gap-x-5 ml-2">
+        <a
+        href={`mailto:${email}`}
+        class="group cursor-pointer"
+        aria-label="Email"
+        title="Email"
+        >
+        <EmailIcon />
+        </a>
+        <a
+        href={`https://github.com/${github}`}
+        class="group cursor-pointer"
+        aria-label="Github"
+        title="Github"
+        >
+        <GithubIcon />
+        </a>
+        <a
+        href={`https://www.linkedin.com/in/${linkedin}`}
+        class="group cursor-pointer"
+        aria-label="Linkedin"
+        title="Linkedin"
+        >
+        <LinkedinIcon />
+        </a>
+    </span>
+</div>

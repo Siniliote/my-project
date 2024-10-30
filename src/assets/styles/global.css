@@ -1,0 +1,72 @@
+/* Import the fonts from the local NPM package 'fontsource'. You can copy the import statements to use whichever font types you need. */
+@import '@fontsource/public-sans/300.css';
+@import '@fontsource/public-sans/400.css';
+@import '@fontsource/public-sans/400-italic.css';
+@import '@fontsource/public-sans/600.css';
+@import '@fontsource/public-sans/700.css';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Theme Classes for light and dark mode */
+
+.light {
+  --color-fore-primary: hsla(240, 6%, 10%);
+  --color-fore-secondary: hsla(240, 4%, 16%);
+  --color-fore-subtle: hsla(218, 17%, 35%);
+
+  --color-back-primary: hsla(240, 5%, 96%);
+  --color-back-secondary: hsla(240, 6%, 93%);
+  --color-back-subtle: hsla(210, 38%, 92%);
+
+  --color-accent: hsla(221, 100%, 63%);
+  --color-second-accent: hsla(243, 78%, 68%);
+  --color-back-accent: hsla(217, 100%, 81%);
+}
+
+.dark {
+  --color-fore-primary: hsla(214, 32%, 91%);
+  --color-fore-secondary: hsla(214, 32%, 91%);
+  --color-fore-subtle: hsla(214, 20%, 69%);
+
+  --color-back-primary: hsla(228, 10%, 11%);
+  --color-back-secondary: hsla(221, 39%, 8%);
+  --color-back-subtle: hsla(221, 39%, 16%);
+
+  --color-accent: hsla(201, 100%, 63%);
+  --color-second-accent: hsla(243, 78%, 68%);
+  --color-back-accent: hsla(172, 67%, 70%);
+}
+
+/* End Theme Classes */
+
+/* Custom Classes */
+
+/* End Custom Classes */
+
+@layer base {
+  ::-moz-selection {
+    background: var(--color-accent);
+    color: var(--color-back-primary);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-back-primary);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-back-primary);
+    color: var(--color-fore-primary);
+    @apply overflow-x-hidden antialiased;
+  }
+
+  .full-width-container {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+}

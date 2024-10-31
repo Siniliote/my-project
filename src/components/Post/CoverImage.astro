@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets'
+
+export interface Props {
+  avatar: string
+}
+
+const { avatar } = Astro.props
+---
+
+<div class="relative my-4 w-full pb-[55%]">
+  <Image
+    src={avatar}
+    alt="Developer Avatar"
+    height={186}
+    width={186}
+    quality={60}
+    class="rounded-full"
+    style={{
+      maxWidth: '100%',
+      height: 'auto'
+    }}
+  />
+</div>

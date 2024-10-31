@@ -1,0 +1,36 @@
+---
+import { ExternalLinkIcon } from '@configs/icons'
+import PostTitle from '@components/Post/PostTitle'
+import CoverImage from '@components/Post/CoverImage.astro'
+import { Image } from 'astro:assets'
+import my_avatar from '@assets/images/my_avatar.png'
+import Date from '@components/Date'
+
+export interface Props {
+  title: string
+  created_at: string
+}
+
+const { title, created_at } = Astro.props
+---
+
+<PostTitle>{title}</PostTitle>
+<div class="mb-8 flex items-center">
+  <div class="relative flex items-center">
+    <Image
+      src={my_avatar}
+      width={42}
+      height={42}
+      alt="Stefan Kudla"
+      class="rounded-full"
+      style={{
+        maxWidth: '100%',
+        height: 'auto'
+      }}
+    />
+    <span class="ml-2 text-sm">
+      Stefan Kudla |{' '}
+      <Date dateString={created_at} formatStyle="LLLL dd, yyyy" /> |{' '}
+    </span>
+  </div>
+</div>

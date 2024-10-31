@@ -5,10 +5,10 @@ import robotsTxt from 'astro-robots-txt'
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    tailwind({applyBaseStyles: false,}),
-    react(),
-    robotsTxt()
-  ],
-  site: 'https://simple-astro-blog.vercel.app'
+  integrations: [tailwind({ applyBaseStyles: false }), react(), robotsTxt()],
+  site: 'https://sferey.com',
+  server: {
+    port: 4321,
+    host: true
+  }
 })

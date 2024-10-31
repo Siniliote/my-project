@@ -1,0 +1,61 @@
+---
+import BaseBlog from '@layouts/BaseBlog.astro'
+import { Image } from 'astro:assets'
+import { parseISO, format } from 'date-fns'
+import { getCollection, getEntry } from 'astro:content'
+
+import type { CollectionEntry } from 'astro:content'
+
+import Link from '@components/mdx/Link.astro'
+import Paragraph from '@components/mdx/Paragraph.astro'
+import Heading from '@components/mdx/Heading.astro'
+
+interface Props {
+  entry: CollectionEntry<'work'>
+}
+
+export async function getStaticPaths() {
+  const workEntries = await getCollection('work')
+  return workEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }))
+}
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+const components = {
+  h2: Heading,
+  a: Link,
+  p: Paragraph
+}
+---
+
+<BaseBlog
+  title={entry.data.title}
+  description={entry.data.metadata.excerpt}
+  imageUrl={`${entry.data.metadata.cover_image?.url}?w=1200&auto=format,compression`}>
+  <article class="prose lg:prose-xl">
+    <section class="border-b pb-8">
+      <h1 class="text-4xl font-bold">
+        {entry.data.title}
+      </h1>
+      <div class="my-8"></div>
+    </section>
+    {
+      entry.data.metadata.cover_image && (
+        <Image
+          src={`${entry.data.metadata.cover_image.url}?w=1200&auto=format,compression`}
+          format="webp"
+          width={1200}
+          height={675}
+          quality={50}
+          alt={`Cover image for the blog ${entry.data.title}`}
+          class={'my-12 rounded-md shadow-lg'}
+        />
+      )
+    }
+
+    <Content components={components} />
+  </article>
+</BaseBlog>

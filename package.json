@@ -9,15 +9,19 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "dependencies": {
+    "@astrojs/mdx": "^3.1.9",
     "@astrojs/react": "^3.6.2",
+    "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.2",
     "@astrojs/ts-plugin": "^1.10.4",
     "@cosmicjs/sdk": "^1.0.5",
     "@fontsource/public-sans": "^5.1.1",
-    "astro": "^4.16.7",
+    "@tailwindcss/typography": "^0.5.15",
+    "astro": "^4.16.8",
+    "classnames": "^2.5.1",
     "date-fns": "^2.30.0",
     "isomorphic-dompurify": "^2.16.0",
     "react-markdown": "^8.0.3",

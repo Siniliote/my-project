@@ -1,30 +1,31 @@
 ---
+import Card from '@components/Card.astro'
 import BaseBlog from '@layouts/BaseBlog.astro'
-import work_in_progress from '@assets/images/work_in_progress.jpeg'
-import { Image } from 'astro:assets'
-import '@assets/styles/global.css'
+
+import type { CollectionEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
+
+const blogEntries = await getCollection('blog')
+
+interface Props {
+  blogPostEntry: CollectionEntry<'blog'>
+}
 ---
 
 <BaseBlog title="Blog">
   <h1 class="text-4xl font-bold">Blog Posts</h1>
   <div class="my-6"></div>
-  <section class="rounded-md bg-white">
-    <span class="transition-opacity hover:opacity-80">
-      <Image
-        src={work_in_progress}
-        format="webp"
-        width={1200}
-        height={575}
-        alt="Featured Blog Post"
-        class={'rounded-t-md'}
-        loading="eager"
-        transition:name="cover image"
-      />
-
-      <div
-        class="flex h-fit flex-col gap-y-2 rounded-md bg-white p-6 shadow-md">
-        <h2 class="text-3xl font-semibold">En construction</h2>
-      </div>
-    </span>
-  </section>
+  {
+    blogEntries.map((blogPostEntry) => (
+      <>
+        <Card
+          type="blog"
+          title={blogPostEntry.data.title}
+          href={blogPostEntry.slug}
+          body={blogPostEntry.data.metadata.excerpt}
+        />
+        <div class="my-6" />
+      </>
+    ))
+  }
 </BaseBlog>

@@ -7,7 +7,7 @@ import { Image } from 'astro:assets'
 interface Props {
   heading?: string
   subHeading?: string
-  avatar: ImageMetadata,
+  avatar: ImageMetadata
   socials: string
 }
 
@@ -15,21 +15,21 @@ const { heading, subHeading, avatar, socials } = Astro.props
 ---
 
 <Section>
-  <div class="flex-1 flex flex-col gap-y-4">
-    <h1 class="text-4xl font-bold font-bold max-w-2xl text-fore-primary">
-      {heading || <slot name="heading"/>}
+  <div class="flex flex-1 flex-col gap-y-4">
+    <h1 class="max-w-2xl text-4xl font-bold font-bold text-fore-primary">
+      {heading || <slot name="heading" />}
     </h1>
     <h2 class="mb-4 max-w-lg">
-      {subHeading || <slot name="subHeading"/>}
+      {subHeading || <slot name="subHeading" />}
     </h2>
     <Socials
-      resume="http://localhost:4321/resume"
+      resume="/assets/CV_FEREY.pdf"
       email="sferey.pro@gmail.com"
       github="Siniliote"
       linkedin="sferey"
     />
   </div>
-  <div class="w-[80px] sm:w-[186px] relative mb-6 sm:mb-0 rounded-full">
+  <div class="relative mb-6 w-[80px] rounded-full sm:mb-0 sm:w-[186px]">
     <Image
       src={avatar}
       alt="Developer Avatar"
@@ -38,8 +38,9 @@ const { heading, subHeading, avatar, socials } = Astro.props
       quality={60}
       class="rounded-full"
       style={{
-        maxWidth: "100%",
-        height: "auto"
-      }} />
+        maxWidth: '100%',
+        height: 'auto'
+      }}
+    />
   </div>
 </Section>

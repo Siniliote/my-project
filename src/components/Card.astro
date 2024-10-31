@@ -3,6 +3,7 @@ export interface Props {
   title: string
   body: string
   href: string
+  type: string
   tags: {
     title: string
     metadata: {
@@ -11,11 +12,11 @@ export interface Props {
   }[]
 }
 
-const { href, title, body, tags } = Astro.props
+const { href, title, type, body } = Astro.props
 ---
 
-<li class="rounded-md bg-white shadow-md transition hover:shadow-xl">
-  <a href={`/blog/${href}`}>
+<li class="list-none rounded-md bg-white shadow-md transition hover:shadow-xl">
+  <a href={`/${type}/${href}`}>
     <div class="flex h-full flex-col gap-y-2 p-6">
       <h2 class="pr-4 pt-2 text-xl font-semibold">
         {title}
@@ -23,21 +24,6 @@ const { href, title, body, tags } = Astro.props
       <p>
         {body}
       </p>
-      {
-        tags && (
-          <div class="flex flex-wrap gap-1">
-            {tags?.map(
-              (tag: { title: string; metadata: { color?: string } }) => (
-                <span
-                  class="w-fit whitespace-nowrap rounded-md bg-black px-2 text-sm font-bold text-white shadow transition"
-                  style={`background-color: ${tag.metadata?.color}`}>
-                  {tag.title}
-                </span>
-              )
-            )}
-          </div>
-        )
-      }
     </div>
   </a>
 </li>

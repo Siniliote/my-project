@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { classNames } from '@lib/classNames'
+
+interface Props extends HTMLAttributes<'a'> {}
+
+const html = await Astro.slots.render('default')
+
+const { class: className, ...props } = Astro.props
+
+const extraClasses: string[] = [
+  'border-',
+  'border-b',
+  'border-b-transparent',
+  'text-blue-600',
+  'transition-colors',
+  'hover:border-b-zinc-300'
+]
+---
+
+<a
+  target="_blank"
+  {...props}
+  class={classNames(className, extraClasses)}
+  set:html={html}
+/>

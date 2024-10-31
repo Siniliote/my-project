@@ -1,15 +1,54 @@
 ---
-import PostList from "@components/PostList.astro";
-import { info } from "@data";
-import { FlaskIcon } from "@configs/icons";
+import { FlaskIcon } from '@configs/icons'
+import { parseISO, format } from 'date-fns'
+import { fr } from 'date-fns/locale'
+
+import { getCollection } from 'astro:content'
+
+const workEntries = (await getCollection('work')).sort((a, b) => {
+  return Date.parse(b.data.started_at) - Date.parse(a.data.started_at)
+})
 ---
 
 <section class="mt-24">
-    <span class="flex items-center mb-8">
-        <div class="bg-back-subtle p-2 mr-4 rounded-full">
-            <FlaskIcon />
-        </div>
-        <h4 class="text-xl text-accent font-semibold">Expérience</h4>
-    </span>
-    <PostList allPosts={info.posts} postType="works" />
+  <span class="mb-8 flex items-center">
+    <div class="mr-4 rounded-full bg-back-subtle p-2">
+      <FlaskIcon />
+    </div>
+    <h4 class="text-xl font-semibold text-accent">Parcours professionnel</h4>
+  </span>
+  <ul>
+    {
+      workEntries.map((workEntry) => (
+        <li class="py-5">
+          <a
+            href={`/work/${workEntry.slug}`}
+            class="group -mx-7 -my-5 flex flex-col border-b-2 px-8 py-5 transition-colors hover:bg-back-subtle lg:flex-row lg:items-center lg:justify-between">
+            <div class="max-w-lg">
+              <h3 class="mb-1 text-xl font-bold transition-colors group-hover:text-accent">
+                {workEntry.data.title}{' '}
+              </h3>
+            </div>
+            <div class="max-w-lg">
+              <time datetime={workEntry.data.started_at}>
+                {format(parseISO(workEntry.data.started_at), 'LLLL, yyyy', {
+                  locale: fr
+                })}
+              </time>{' '}
+              -{' '}
+              {workEntry.data.ended_at ? (
+                <time datetime={workEntry.data.ended_at}>
+                  {format(parseISO(workEntry.data.ended_at), 'LLLL, yyyy', {
+                    locale: fr
+                  })}
+                </time>
+              ) : (
+                'Aujourd’hui'
+              )}
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </section>

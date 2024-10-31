@@ -1,0 +1,33 @@
+---
+import Card from '@components/Card.astro'
+import BaseBlog from '@layouts/BaseBlog.astro'
+
+import type { CollectionEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
+
+interface Props {
+  workEntry: CollectionEntry<'work'>
+}
+
+const workEntries = (await getCollection('work')).sort((a, b) => {
+  return Date.parse(b.data.started_at) - Date.parse(a.data.started_at)
+})
+---
+
+<BaseBlog title="Mon parcours">
+  <h1 class="text-4xl font-bold">Mon parcours</h1>
+  <div class="my-6"></div>
+  {
+    workEntries.map((workEntry) => (
+      <>
+        <Card
+          type="work"
+          title={workEntry.data.title}
+          href={workEntry.slug}
+          body={workEntry.data.metadata.excerpt}
+        />
+        <div class="my-6" />
+      </>
+    ))
+  }
+</BaseBlog>

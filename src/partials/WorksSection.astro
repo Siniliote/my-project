@@ -1,13 +1,15 @@
 ---
 import { FlaskIcon } from '@configs/icons'
-import { parseISO, format } from 'date-fns'
-import { fr } from 'date-fns/locale'
 
 import { getCollection } from 'astro:content'
 
 const workEntries = (await getCollection('work')).sort((a, b) => {
   return Date.parse(b.data.started_at) - Date.parse(a.data.started_at)
 })
+const dateOptions: object = {
+  year: 'numeric',
+  month: 'long'
+}
 ---
 
 <section class="mt-24">
@@ -31,16 +33,18 @@ const workEntries = (await getCollection('work')).sort((a, b) => {
             </div>
             <div class="max-w-lg">
               <time datetime={workEntry.data.started_at}>
-                {format(parseISO(workEntry.data.started_at), 'LLLL, yyyy', {
-                  locale: fr
-                })}
+                {new Date(workEntry.data.started_at).toLocaleDateString(
+                  'fr-FR',
+                  dateOptions
+                )}
               </time>{' '}
               -{' '}
               {workEntry.data.ended_at ? (
                 <time datetime={workEntry.data.ended_at}>
-                  {format(parseISO(workEntry.data.ended_at), 'LLLL, yyyy', {
-                    locale: fr
-                  })}
+                  {new Date(workEntry.data.ended_at).toLocaleDateString(
+                    'fr-FR',
+                    dateOptions
+                  )}
                 </time>
               ) : (
                 'Aujourd’hui'

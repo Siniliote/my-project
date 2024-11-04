@@ -1,7 +1,6 @@
 ---
 import BaseBlog from '@layouts/BaseBlog.astro'
 import { Image } from 'astro:assets'
-import { parseISO, format } from 'date-fns'
 import { getCollection, getEntry } from 'astro:content'
 
 import type { CollectionEntry } from 'astro:content'
@@ -31,6 +30,12 @@ const components = {
   p: Paragraph,
   pre: Pre
 }
+
+const dateOptions: object = {
+  year: '2-digit',
+  month: 'numeric',
+  day: 'numeric'
+}
 ---
 
 <BaseBlog
@@ -59,7 +64,14 @@ const components = {
         }
         <span class="flex flex-col">
           {author.data.name ? <span>{author.data.name}</span> : ''}
-          <span>{format(parseISO(entry.data.created_at), 'MM/dd/yyyy')}</span>
+          <span
+            >{
+              new Date(entry.data.created_at).toLocaleDateString(
+                'fr-FR',
+                dateOptions
+              )
+            }</span
+          >
         </span>
       </span>
     </section>

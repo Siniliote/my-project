@@ -1,12 +1,11 @@
 ---
 import { Code } from 'astro:components'
-import PreWrapper from '@components/mdx/PreWrapper.astro'
+import PreWrapper from './PreWrapper.astro'
 const [, , lang, code] =
   (await Astro.slots.render('default')).match(
     /^<code( class="language-([^"]+)")?>([\s\S]+)<\/code>$/
   ) || []
 
-const theme = 'solarized'
 const finalCode = code
   .replaceAll('&lt;', '<')
   .replaceAll('&gt;', '>')
@@ -16,13 +15,5 @@ const finalCode = code
 ---
 
 <PreWrapper lang={lang}>
-  <Code
-    themes={{
-      light: `${theme}-light`,
-      L: `${theme}-light`,
-      D: `${theme}-dark`
-    }}
-    code={finalCode}
-    lang={lang.toLowerCase() as any}
-  />
+  <Code code={finalCode} lang={lang.toLowerCase() as any} />
 </PreWrapper>

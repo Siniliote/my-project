@@ -1,0 +1,140 @@
+---
+title: 'Nouveauté de Symfony 7.2'
+authors: stephane-ferey
+created_at: '2024-11-04'
+metadata:
+  excerpt: '🎃 Symfony 7.2 : Une Sortie Effrayante en Novembre ! 🎃'
+  cover_image:
+    url: '/assets/cover_new-in-symfony-7-2.jpeg'
+    alt: 'Cover Nouveauté de Symfony 7.2'
+tags: ['symfony', 'news']
+---
+
+# Introduction
+
+Alors que les feuilles tombent et que les citrouilles illuminent nos soirées, Symfony 7.2 s’apprête à faire son apparition, apportant avec elle une série de nouveautés qui vont hanter agréablement les développeurs. Prévue pour début novembre, cette version promet d’être aussi captivante qu’une nuit d’Halloween, avec des fonctionnalités qui vont ensorceler votre code et améliorer vos projets.
+
+Préparez-vous à découvrir les secrets bien gardés de cette mise à jour et à plonger dans un univers où performance et innovation se rencontrent.
+
+Voilà ma première introduction, ©Copilot
+
+## Week, WordCount et Yaml Contrainte
+
+Symfony 7.2 introduit trois nouvelles contraintes de validation.
+
+### Contrainte Week
+
+La contrainte Week vérifie qu’une chaîne représente un numéro de semaine valide selon la norme [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601).
+
+```php
+namespace App\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
+class Rental {
+    #[Assert\Week]
+    protected string $bookingWeek;
+}
+```
+
+Avec des options min et max : `#[Assert\Week(min: '2022-W01', max: '2022-W20')]`
+
+### Contrainte WordCount
+
+La contrainte WordCount s’assure qu’une chaîne contient un nombre de mots compris dans une plage définie.
+
+```php
+namespace App\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
+class BlogPostDTO {
+    #[Assert\WordCount(min: 100, max: 200)]
+    protected string $content;
+}
+```
+
+### Contrainte Yaml
+
+La contrainte Yaml valide la syntaxe YAML, garantissant que les fichiers de configuration respectent les règles de ce format.
+
+```php
+namespace App\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
+class Report {
+    #[Assert\Yaml(message: "Votre configuration n'a pas une syntaxe YAML valide.")]
+    private string $customConfiguration;
+}
+```
+
+Il est possible d'y ajouter des options de drapeaux `#[Assert\Yaml(flags: Yaml::PARSE_CONSTANT | Yaml::PARSE_CUSTOM_TAGS | Yaml::PARSE_DATETIME)]`
+
+## Silent Verbosity
+
+La fonctionnalité Silent Verbosity permet de supprimer tous les messages de sortie, y compris les erreurs et les exceptions, lors de l’exécution de commandes en console.
+Cela peut être particulièrement utile lorsque vous intégrez des services tiers qui attendent des logs en format JSON sans données non structurées.
+
+Pour utiliser cette fonctionnalité, vous pouvez ajouter l’option --silent à votre commande :
+
+```bash
+# Supprime toutes les sorties, y compris les erreurs et les exceptions
+php bin/console some-command --silent
+```
+
+```bash
+# Dans votre fichier .env ou directement dans le terminal
+export SHELL_VERBOSITY=-2
+```
+
+```php
+namespace App\Command;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+class SilentCommand extends Command {
+    protected static $defaultName = 'app:silent-command';
+
+    protected function execute(InputInterface $input, OutputInterface $output): int {
+        // Votre logique de commande ici
+
+        // Suppression de toutes les sorties
+        if ($output->getVerbosity() === OutputInterface::VERBOSITY_QUIET) {
+            // Logique spécifique pour le mode silencieux
+        }
+
+        return Command::SUCCESS;
+    }
+}
+```
+
+## Expression Language Improvements
+
+## AsMessage Attribute
+
+## Named Serializers
+
+## Translations Linter
+
+## WhenNot Attribute
+
+## Lazy Choice Loader
+
+## String Component Improvements
+
+## Compound Constraint Improvements
+
+## Mailer and Notifier Integrations
+
+## Improved Translation Extractor
+
+## Desktop Notifications
+
+## Template DX Improvements
+
+## Non-Empty Container Parameters
+
+## Keepalive Messenger Transports
